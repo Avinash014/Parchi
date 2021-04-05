@@ -1,0 +1,75 @@
+* {
+  box-sizing: border-box;
+  color: black;
+  font-family: "Open Sans", sans-serif;
+}
+body {
+  position: relative;
+  font-size: 20px;
+  text-align: center;
+  background-color: skyblue;
+  width: 80%;
+  margin: auto;
+}
+h3 {
+  font-weight: 600;
+  color: red;
+}
+#inputBar {
+  width: 100%;
+  height: fit-content;
+  overflow-y: hidden;
+}
+#inputText {
+  width: 90%;
+  left: 0;
+  background-color: snow;
+  font-size: larger;
+  border: 2px black solid;
+  padding: 10px;
+}
+#submit {
+  width: 10%;
+  background-color: pink;
+  font-size: larger;
+  border: 2px black solid;
+  padding: 10px;
+}
+button {
+  float: right;
+  background: none;
+  border: none;
+}
+button:hover {
+  background-color: red;
+}
+#outputText p {
+  text-align: left;
+  text-transform: uppercase;
+  border: 2px red solid;
+  background-color: white;
+  padding: 10px;
+}
+#outputText button {
+  margin: 0;
+}
+#outputText p:hover {
+  border: 3px black solid;
+  background-color: yellow;
+  font-weight: bold;
+}
+.doneWork {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+#AviSingnature {
+  z-index: -1;
+  background-color: gray;
+  border-radius: 5px;
+  border: 2px solid red;
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
