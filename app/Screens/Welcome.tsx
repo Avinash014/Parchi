@@ -10,12 +10,14 @@ import {
 const isAndroid = Platform.OS == "android";
 const viewPadding = 10;
 const styles = StyleSheet.create({
-  // container: {
-  //   flex: 1,
-  //   backgroundColor: "#fff",
-  //   alignItems: "center",
-  //   justifyContent: "center",
-  // },
+  container: {
+    flex: 1,
+    justifyContent: "flex-start",
+    alignItems: "center",
+    backgroundColor: "#F5FCFF",
+    padding: viewPadding,
+    paddingTop: 20,
+  },
   formContainer: {
     // backgroundColor: "red",
     width: "80%",
@@ -25,6 +27,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  hr: {
+    height: 1,
+    backgroundColor: "gray",
+  },
   input: {
     height: 40,
     fontSize: 20,
@@ -33,17 +39,25 @@ const styles = StyleSheet.create({
   },
   inputItem: {
     height: 40,
+    border: "1px solid black",
+    width: "80%",
+    padding: "2px",
     //fontSize: 20,
     // borderBottom: "1px solid black",
   },
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#F5FCFF",
-    padding: viewPadding,
-    paddingTop: 20,
+  inputQty: {
+    height: 40,
+    border: "1px solid black",
+    width: "20%",
+    padding: "2px",
+    //fontSize: 20,
+    // borderBottom: "1px solid black",
   },
+  itemWrapper: {
+    width: "100%",
+    flexDirection: "row",
+  },
+
   list: {
     width: "100%",
   },
@@ -51,10 +65,6 @@ const styles = StyleSheet.create({
     paddingTop: 2,
     paddingBottom: 2,
     fontSize: 18,
-  },
-  hr: {
-    height: 1,
-    backgroundColor: "gray",
   },
   listItemCont: {
     flexDirection: "row",
@@ -76,8 +86,8 @@ type Props = {
 };
 const Welcome: React.FC<Props> = ({ setIsAuthenticated }) => {
   const inititalItem = {
-    name: "Enter the item name",
-    qty: "How much do you want",
+    name: "name",
+    qty: "Qty",
   };
   const [items, setItems] = React.useState([inititalItem]);
   const addItems = () => {
@@ -87,27 +97,27 @@ const Welcome: React.FC<Props> = ({ setIsAuthenticated }) => {
   };
   return (
     <View style={styles.container}>
-      <Text>Welcome</Text>
-      <View>
-        {items.map((item, index) => {
-          return (
-            <>
-              <TextInput
-                style={styles.inputItem}
-                placeholder={item.name}
-                //onChangeText={(val) => (val,index)}
-                //defaultValue={"Add"}
-              />
-              <TextInput
-                style={styles.inputItem}
-                placeholder={item.qty}
-                //onChangeText={(val) => (val,index)}
-                //defaultValue={"Add"}
-              />
-            </>
-          );
-        })}
-      </View>
+      <Text>Create a parchi</Text>
+      {/* <View> */}
+      {items.map((item, index) => {
+        return (
+          <View style={styles.itemWrapper}>
+            <TextInput
+              style={styles.inputItem}
+              placeholder={item.name}
+              //onChangeText={(val) => (val,index)}
+              //defaultValue={"Add"}
+            />
+            <TextInput
+              style={styles.inputQty}
+              placeholder={item.qty}
+              //onChangeText={(val) => (val,index)}
+              //defaultValue={"Add"}
+            />
+          </View>
+        );
+      })}
+      {/* </View> */}
 
       <Button
         onPress={() => {
