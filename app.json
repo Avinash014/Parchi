@@ -28,6 +28,6 @@
     "web": {
       "favicon": "./app/assets/favicon.png"
     },
-    "description": "created basic setup for add item"
+    "description": "adding navigation and code improvement"
   }
 }
