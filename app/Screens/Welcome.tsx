@@ -7,6 +7,7 @@ import {
   TextInput,
   Platform,
 } from "react-native";
+import NewParchi from "./NewParchi";
 const isAndroid = Platform.OS == "android";
 const viewPadding = 10;
 const styles = StyleSheet.create({
@@ -95,6 +96,9 @@ const Welcome: React.FC<Props> = ({ setIsAuthenticated }) => {
     newList.push(inititalItem);
     setItems(newList);
   };
+  return (
+    <NewParchi/>
+  )
   return (
     <View style={styles.container}>
       <Text>Create a parchi</Text>

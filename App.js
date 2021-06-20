@@ -5,6 +5,8 @@ import { Provider as StoreProvider } from "react-redux";
 import configureStore from "./app/store/configureStore";
 import { StyleSheet, Text, View } from "react-native";
 import Main from "./app/Main";
+import App1 from "./src/App"
+
 
 import Welcome from "./app/Screens/Welcome";
 // const store = configureStore();
@@ -29,7 +31,8 @@ export default function App() {
   return (
     <StoreProvider store={store}>
       <PaperProvider>
-        <Main />
+        {/* <Main /> */}
+        <App1/>
       </PaperProvider>
     </StoreProvider>
   );
