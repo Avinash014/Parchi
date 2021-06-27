@@ -15,89 +15,140 @@ import {
   StatusBar,
   Image,
 } from 'react-native';
-
-import styles from './styles/sharedStyles.js';
+import {StyleSheet} from 'react-native';
+// import styles from './styles/sharedStyles.js';
 import 'react-native-gesture-handler';
 
 import {TouchableOpacity} from 'react-native-gesture-handler';
+const styles = StyleSheet.create({
+  container:{
+    padding:'2px',
+    backgroundColor: 'skyblue',
+    flex:1,
+    alignItems: "center",
+    width: '100%',
+    height: '100%'
+  },
+  body:{
+    width: '100%',
+    height: '100%',
+    padding:'5px',
+    alignItems:'center'
+  },
+  orderContainer:{
+    width:'100%',
+  },
+  orderRow : {
+      width: '100%',
+      border:'1px solid black',
+      backgroundColor: 'white',
+      borderRadius:"5px",
+      height: '50px',
+      flexDirection:'row',
+      alignItems: "center",
+      marginBottom:"2px",
 
+  },
+  inputItem :{
+      width:'50%',
+      height:'75%',
+      padding:'5px',
+      borderRightWidth:'1px',
+      borderRightColor:'black',
+      borderStyle:'solid',
+      justifyContent:'center'
+  },
+  inputQty :{
+      width:'40%',
+      height:'75%',
+      padding:'5px',
+      borderRightWidth:'1px',
+      borderRightColor:'black',
+      borderStyle:'solid',
+      justifyContent:'center'
+  },
+  seperatorStyle: {
+    height: 1,
+    backgroundColor: 'black',
+    paddingTop: 2,
+    marginTop: 2,
+  },
+  deleteIcon:{
+    width:'10%'
+  },
+  addMoreBtn:{
+    alignItems:"center"
+  },
+  btnPrimary:{
+    width:'200px',
+    padding:'5px',
+    justifyContent:'center',
+    alignItems:'center',
+    border:'2px solid black',
+    borderRadius:'5px',
+    backgroundColor:'dodgerblue',
+    fontWeight:'bold',
+    color:'white',
+  },
+  stickyFooter:{
+    marginTop: 'auto'
+  },
+  scrollView: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'white',
+  },
+  mainBtn :{
+    height:'50px',
+    width:'100%',
+    justifyContent:'center',
+    alignItems:'center',
+    borderBottomWidth:'1px',
+    borderBottomColor:'black',
+    borderStyle:'solid',
+  },
+  btnText:{
+    fontSize:'20px'
+  }
+})
 function Home({navigation}) {
   return (
     <>
       <StatusBar barStyle="dark-content" />
-      <SafeAreaView style={styles.mainContainer}>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Image
-            style={styles.image}
-            source={require('../images/banner.png')}
-          />
-
+      <SafeAreaView style={styles.container}>
+ 
           <View style={styles.body}>
-            <View style={styles.sectionContainer}>
+            <View style={styles.mainBtn}>
               <TouchableOpacity
                 onPress={() =>
                   navigation.navigate('Create Order', {name: 'Create Order'})
                 }>
-                <Text style={styles.sectionTitle}>Create Order</Text>
+                <Text style={styles.btnText}>New Order</Text>
               </TouchableOpacity>
-              <Text style={styles.sectionDescription}>
-              This is for adding items in your cart
-              </Text>
             </View>
-            <View style={styles.sectionContainer}>
+            <SeparatorComponent/>
+            <View style={styles.mainBtn}>
               <TouchableOpacity
-                onPress={() => navigation.navigate('Story', {name: 'Story'})}>
-                <Text style={styles.sectionTitle}>Story</Text>
+                onPress={() => navigation.navigate('Saved Order', {name: 'Saved Order'})}>
+                <Text style={styles.btnText}>Saved Order</Text>
               </TouchableOpacity>
-              <Text style={styles.sectionDescription}>Learn more about us</Text>
             </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Submit Sessions</Text>
-              <Text style={styles.sectionDescription}>
-                Are you interested in speaking? Submit a session!
-              </Text>
+            <SeparatorComponent/>
+            <View style={styles.mainBtn}>
+            <TouchableOpacity
+                onPress={() => navigation.navigate('Past Order', {name: 'Past Order'})}>
+                <Text style={styles.btnText}>Past Order</Text>
+              </TouchableOpacity>
             </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Feedback</Text>
-              <Text style={styles.sectionDescription}>
-                We would love to hear from you.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-
-            {/* <View style={styles.sectionContainer}>
-              <View style={styles.footer}>
-                <Image
-                  style={{
-                    width: 300,
-                    height: 70,
-                    resizeMode: 'stretch',
-                    position: 'relative',
-                  }}
-                  source={require('../images/pluralsight-white.png')}
-                />
-              </View>
-            </View> */}
+            
           </View>
-        </ScrollView>
       </SafeAreaView>
     </>
   );
 }
 
-
+const SeparatorComponent = () => {
+  return <View style={styles.seperatorStyle} />;
+};
 
 export default Home;
