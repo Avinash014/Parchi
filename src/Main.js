@@ -7,6 +7,7 @@ import Speakers from './containers/Speakers';
 import CreateOrder from './containers/CreateOrder';
 import PastOrder from './containers/PastOrder';
 import SavedOrder from './containers/SavedOrder';
+import ConfirmedOrder from './containers/ConfirmedOrder';
 import FinalOrder from './containers/FinalOrder';
 import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
 import { Provider as StoreProvider } from "react-redux";
@@ -27,6 +28,7 @@ const Main = () => {
           <Stack.Navigator>
             <Stack.Screen name="Home" component={Home} />
             <Stack.Screen name="Create Order" component={CreateOrder} />
+            <Stack.Screen name="Confirmed Order" component={ConfirmedOrder} />
             <Stack.Screen name="Saved Order" component={SavedOrder} />
             <Stack.Screen name="Past Order" component={PastOrder} />
             <Stack.Screen name="Conference" component={Conference} />

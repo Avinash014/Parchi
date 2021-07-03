@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
       marginTop: 'auto'
     }
 })
-function CreateOrder({navigation}) {
+function ConfirmedOrder({navigation}) {
     const [order, setOrder] = useState([{}]);
     const initialOrder = {};
     const addOrder = () =>{
@@ -114,9 +114,7 @@ function CreateOrder({navigation}) {
           </TouchableOpacity>
       </ScrollView>
       <View style = {styles.stickyFooter}>
-        <TouchableOpacity style = {styles.btnPrimary} onPress={() =>
-                  navigation.navigate('Confirmed Order', {name: 'Confirmed Order'})
-                }>
+        <TouchableOpacity style = {styles.btnPrimary} onPress={() => addOrder()}>
           Save &amp; Continue
         </TouchableOpacity>
       </View>
@@ -195,4 +193,4 @@ const HeaderComponent = () => {
 const FooterComponent = () => {
   return <Footer />;
 };
-export default CreateOrder;
+export default ConfirmedOrder;
