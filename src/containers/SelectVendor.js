@@ -9,6 +9,7 @@ import {
   Button,
   ScrollView,
 } from "react-native";
+import { Picker } from "@react-native-picker/picker";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { StyleSheet } from "react-native";
 import { orders } from "../data/orders.json";
@@ -109,8 +110,9 @@ const CreateOrderHandler = () => {
       console.log(error);
     });
 };
-function CreateOrder({ navigation }) {
+function SelectVendor({ navigation }) {
   const [order, setOrder] = useState([{}]);
+  const [selectedValue, setSelectedValue] = useState("java");
   const initialOrder = {};
   const addOrder = () => {
     let newOrder = [...order];
@@ -136,6 +138,17 @@ function CreateOrder({ navigation }) {
   // })
   return (
     <View style={styles.container}>
+      <View style={styles.orderContainer}>
+        <Picker
+          selectedValue={selectedValue}
+          style={styles.orderRow}
+          // style={{ height: 50, width: 150 }}
+          onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+        >
+          <Picker.Item label="Java" value="java" />
+          <Picker.Item label="JavaScript" value="js" />
+        </Picker>
+      </View>
       <ScrollView style={styles.orderContainer}>
         {order.map((item, index) => {
           return (
@@ -145,6 +158,14 @@ function CreateOrder({ navigation }) {
             </View>
           );
         })}
+        <TouchableOpacity style={styles.addMoreBtn} onPress={() => addOrder()}>
+          <IconButton
+            icon="plus-circle"
+            color={Colors.grey900}
+            size={30}
+            onPress={() => console.log("Pressed")}
+          />
+        </TouchableOpacity>
       </ScrollView>
       <View style={styles.stickyFooter}>
         <TouchableOpacity
@@ -154,35 +175,20 @@ function CreateOrder({ navigation }) {
             // navigation.navigate('Confirmed Order', {name: 'Confirmed Order'})
           }
         >
-          Save &amp; Continue
+          Save
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.btnPrimary}
-          onPress={() =>
-            // CreateOrderHandler()
-            navigation.navigate("Select Vendor", { name: "Select Vendor" })
+          onPress={
+            () => CreateOrderHandler()
+            // navigation.navigate('Confirmed Order', {name: 'Confirmed Order'})
           }
         >
-          Select Vender
+          Proceed To Checkout
         </TouchableOpacity>
       </View>
     </View>
   );
-  //   return (
-  //     <View>
-  //       <FlatList
-  //         keyboardDismissMode={'on-drag'}
-  //         keyboardShouldPersistTaps={'always'}
-  //         data={filteredOrder}
-  //         keyExtractor={(item) => item.id}
-  //         renderItem={renderItem}
-  //         ItemSeparatorComponent={SeparatorComponent}
-  //         pagingEnabled={false}
-  //         ListHeaderComponent={HeaderComponent}
-  //         ListFooterComponent={FooterComponent}
-  //       />
-  //     </View>
-  //   );
 }
 
 const OrderRow = ({ index, item, saveItem }) => {
@@ -245,4 +251,4 @@ const HeaderComponent = () => {
 const FooterComponent = () => {
   return <Footer />;
 };
-export default CreateOrder;
+export default SelectVendor;
