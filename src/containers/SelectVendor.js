@@ -17,6 +17,10 @@ import { orders } from "../data/orders.json";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import { IconButton, Colors, Avatar } from "react-native-paper";
+import { changeCount, addOrderAction, addVendorAction } from "../actions/count";
+import { useDispatch } from "react-redux";
+import { RootState } from "../reducers";
+import { useSelector } from "react-redux";
 
 const styles = StyleSheet.create({
   container: {
@@ -111,6 +115,17 @@ const CreateOrderHandler = () => {
     });
 };
 function SelectVendor({ navigation }) {
+  const dispatch = useDispatch();
+  const { count, finalOrder } = useSelector((state) => ({
+    count: state.count,
+    finalOrder: state.count.order,
+  }));
+  const testAction = async (val) => {
+    // dispatch(changeCount(val));
+    await dispatch(addVendorAction(selectedValue));
+    // console.info(val);
+    // console.info(finalOrder);
+  };
   const [order, setOrder] = useState([{}]);
   const [selectedValue, setSelectedValue] = useState("java");
   const initialOrder = {};
@@ -133,9 +148,22 @@ function SelectVendor({ navigation }) {
     setOrder(newOrder);
     console.log(newOrder);
   };
-  // React.useEffect(()=> {
-  //     setOrder([initialOrder])
-  // })
+  React.useEffect(() => {
+    setOrder(finalOrder);
+    console.info(finalOrder);
+  }, []);
+  const renderItem = ({ item }) => (
+    <View style={styles.orderRow}>
+      <Text>
+        {item.name} : {item.qty}
+      </Text>
+    </View>
+  );
+  const nextScreenHandler = () => {
+    testAction();
+    navigation.navigate("Confirmed Order", { name: "Confirmed Order" });
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.orderContainer}>
@@ -145,27 +173,33 @@ function SelectVendor({ navigation }) {
           // style={{ height: 50, width: 150 }}
           onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
         >
-          <Picker.Item label="Java" value="java" />
-          <Picker.Item label="JavaScript" value="js" />
+          <Picker.Item label="shop 1" value="shop 1" />
+          <Picker.Item label="shop 2" value="shop 2" />
+          <Picker.Item label="shop 3" value="shop 3" />
         </Picker>
       </View>
+      <View>
+        <Text>Your order</Text>
+      </View>
       <ScrollView style={styles.orderContainer}>
-        {order.map((item, index) => {
+        <FlatList
+          keyboardDismissMode={"on-drag"}
+          keyboardShouldPersistTaps={"always"}
+          data={order}
+          keyExtractor={(item) => item.name}
+          renderItem={renderItem}
+          // ItemSeparatorComponent={SeparatorComponent}
+          pagingEnabled={false}
+          // ListHeaderComponent={HeaderComponent}
+          // ListFooterComponent={FooterComponent}
+        />
+        {/* {order.map((item, index) => {
           return (
             <View key={Math.random()} style={styles.orderRow}>
               <OrderRow index={index} item={item} saveItem={saveItem} />
-              <DeleteOrder index={index} deleteItem={deleteItem} />
             </View>
           );
-        })}
-        <TouchableOpacity style={styles.addMoreBtn} onPress={() => addOrder()}>
-          <IconButton
-            icon="plus-circle"
-            color={Colors.grey900}
-            size={30}
-            onPress={() => console.log("Pressed")}
-          />
-        </TouchableOpacity>
+        })} */}
       </ScrollView>
       <View style={styles.stickyFooter}>
         <TouchableOpacity
@@ -179,10 +213,8 @@ function SelectVendor({ navigation }) {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.btnPrimary}
-          onPress={
-            () => CreateOrderHandler()
-            // navigation.navigate('Confirmed Order', {name: 'Confirmed Order'})
-          }
+          onPress={() => nextScreenHandler()}
+          //
         >
           Proceed To Checkout
         </TouchableOpacity>

@@ -16,6 +16,10 @@ import { orders } from "../data/orders.json";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import { IconButton, Colors, Avatar } from "react-native-paper";
+import { changeCount, addOrderAction } from "../actions/count";
+import { useDispatch } from "react-redux";
+import { RootState } from "../reducers";
+import { useSelector } from "react-redux";
 
 const styles = StyleSheet.create({
   container: {
@@ -78,6 +82,7 @@ const styles = StyleSheet.create({
   },
 });
 // const axios = require('axios').default;
+
 const CreateOrderHandler = () => {
   var axios = require("axios");
   var data = JSON.stringify({
@@ -110,6 +115,17 @@ const CreateOrderHandler = () => {
     });
 };
 function CreateOrder({ navigation }) {
+  const dispatch = useDispatch();
+  const { count, finalOrder } = useSelector((state) => ({
+    count: state.count,
+    finalOrder: state.count.order,
+  }));
+  const testAction = async (val) => {
+    // dispatch(changeCount(val));
+    await dispatch(addOrderAction(order));
+    // console.info(val);
+    console.info(finalOrder);
+  };
   const [order, setOrder] = useState([{}]);
   const initialOrder = {};
   const addOrder = () => {
@@ -134,6 +150,11 @@ function CreateOrder({ navigation }) {
   // React.useEffect(()=> {
   //     setOrder([initialOrder])
   // })
+  const nextScreenHandler = () => {
+    testAction();
+    navigation.navigate("Select Vendor", { name: "Select Vendor" });
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView style={styles.orderContainer}>
@@ -145,12 +166,21 @@ function CreateOrder({ navigation }) {
             </View>
           );
         })}
+        <TouchableOpacity style={styles.addMoreBtn} onPress={() => addOrder()}>
+          <IconButton
+            icon="plus-circle"
+            color={Colors.grey900}
+            size={30}
+            onPress={() => console.log("Pressed")}
+          />
+        </TouchableOpacity>
       </ScrollView>
       <View style={styles.stickyFooter}>
         <TouchableOpacity
           style={styles.btnPrimary}
           onPress={
-            () => CreateOrderHandler()
+            // () => CreateOrderHandler()
+            () => testAction(5)
             // navigation.navigate('Confirmed Order', {name: 'Confirmed Order'})
           }
         >
@@ -158,10 +188,7 @@ function CreateOrder({ navigation }) {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.btnPrimary}
-          onPress={() =>
-            // CreateOrderHandler()
-            navigation.navigate("Select Vendor", { name: "Select Vendor" })
-          }
+          onPress={() => nextScreenHandler()}
         >
           Select Vender
         </TouchableOpacity>
