@@ -180,7 +180,8 @@ function CreateOrder({ navigation }) {
           style={styles.btnPrimary}
           onPress={
             // () => CreateOrderHandler()
-            () => testAction(5)
+            // () => testAction(5)
+            () => CreateOrderHandler()
             // navigation.navigate('Confirmed Order', {name: 'Confirmed Order'})
           }
         >

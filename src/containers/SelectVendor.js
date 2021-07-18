@@ -42,6 +42,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: "2px",
   },
+  orderSelected: {
+    width: "100%",
+    border: "1px solid black",
+    backgroundColor: "white",
+    borderRadius: "5px",
+    padding: "5px",
+    backgroundColor: "aliceblue",
+    minHeight: "50%",
+    // flexDirection: "row",
+    // alignItems: "center",
+    marginBottom: "2px",
+  },
   inputItem: {
     width: "50%",
     height: "75%",
@@ -80,6 +92,12 @@ const styles = StyleSheet.create({
   stickyFooter: {
     marginTop: "auto",
     flexDirection: "row",
+  },
+  titleContainer: {
+    padding: "5px",
+  },
+  title: {
+    fontSize: "20px",
   },
 });
 // const axios = require('axios').default;
@@ -153,11 +171,11 @@ function SelectVendor({ navigation }) {
     console.info(finalOrder);
   }, []);
   const renderItem = ({ item }) => (
-    <View style={styles.orderRow}>
-      <Text>
-        {item.name} : {item.qty}
-      </Text>
-    </View>
+    // <View style={styles.orderRow}>
+    <Text>
+      {item.name} : {item.qty}
+    </Text>
+    // </View>
   );
   const nextScreenHandler = () => {
     testAction();
@@ -178,29 +196,31 @@ function SelectVendor({ navigation }) {
           <Picker.Item label="shop 3" value="shop 3" />
         </Picker>
       </View>
-      <View>
-        <Text>Your order</Text>
+      <View style={styles.titleContainer}>
+        <Text style={styles.title}>Your order</Text>
       </View>
-      <ScrollView style={styles.orderContainer}>
-        <FlatList
-          keyboardDismissMode={"on-drag"}
-          keyboardShouldPersistTaps={"always"}
-          data={order}
-          keyExtractor={(item) => item.name}
-          renderItem={renderItem}
-          // ItemSeparatorComponent={SeparatorComponent}
-          pagingEnabled={false}
-          // ListHeaderComponent={HeaderComponent}
-          // ListFooterComponent={FooterComponent}
-        />
-        {/* {order.map((item, index) => {
+      <View style={styles.orderSelected}>
+        <ScrollView>
+          <FlatList
+            keyboardDismissMode={"on-drag"}
+            keyboardShouldPersistTaps={"always"}
+            data={order}
+            keyExtractor={(item) => item.name}
+            renderItem={renderItem}
+            // ItemSeparatorComponent={SeparatorComponent}
+            pagingEnabled={false}
+            // ListHeaderComponent={HeaderComponent}
+            // ListFooterComponent={FooterComponent}
+          />
+          {/* {order.map((item, index) => {
           return (
             <View key={Math.random()} style={styles.orderRow}>
               <OrderRow index={index} item={item} saveItem={saveItem} />
             </View>
           );
         })} */}
-      </ScrollView>
+        </ScrollView>
+      </View>
       <View style={styles.stickyFooter}>
         <TouchableOpacity
           style={styles.btnPrimary}

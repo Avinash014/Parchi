@@ -41,6 +41,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: "2px",
   },
+  orderSelected: {
+    width: "100%",
+    border: "1px solid black",
+    backgroundColor: "white",
+    borderRadius: "5px",
+    padding: "5px",
+    backgroundColor: "aliceblue",
+    // minHeight: "50%",
+    // flexDirection: "row",
+    // alignItems: "center",
+    marginBottom: "2px",
+  },
   inputItem: {
     width: "50%",
     height: "75%",
@@ -79,6 +91,24 @@ const styles = StyleSheet.create({
   stickyFooter: {
     marginTop: "auto",
   },
+  titleContainer: {
+    padding: "5px",
+  },
+  title: {
+    fontSize: "20px",
+  },
+  venderSelected: {
+    width: "100%",
+    border: "1px solid black",
+    backgroundColor: "white",
+    borderRadius: "5px",
+    padding: "5px",
+    backgroundColor: "aliceblue",
+    // minHeight: "50%",
+    // flexDirection: "row",
+    // alignItems: "center",
+    marginBottom: "2px",
+  },
 });
 function ConfirmedOrder({ navigation }) {
   const dispatch = useDispatch();
@@ -87,6 +117,39 @@ function ConfirmedOrder({ navigation }) {
     finalOrder: state.count.order,
     vendor: state.count.vendor,
   }));
+
+  const PlaceOrderHandler = () => {
+    var axios = require("axios");
+    var data = JSON.stringify({
+      customerId: 1,
+      vendorId: 2,
+      items: [
+        {
+          item: "Oil tin",
+          quantity: "12 L",
+        },
+      ],
+    });
+
+    var config = {
+      method: "post",
+      url: "https://kirana-stores.herokuapp.com/order/place",
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   // "Access-Control-Allow-Origin": "*",
+      // },
+      headers: { "Access-Control-Allow-Origin": "*" },
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
   const testAction = async (val) => {
     // dispatch(changeCount(val));
     await dispatch(addVendorAction(selectedValue));
@@ -118,31 +181,40 @@ function ConfirmedOrder({ navigation }) {
     setOrder(finalOrder);
   }, []);
   const renderItem = ({ item }) => (
-    <View style={styles.orderRow}>
-      <Text>
-        {item.name} : {item.qty}
-      </Text>
-    </View>
+    <Text>
+      {item.name} : {item.qty}
+    </Text>
   );
   return (
     <View style={styles.container}>
-      <View>{vendor}</View>
-      <ScrollView style={styles.orderContainer}>
-        <FlatList
-          keyboardDismissMode={"on-drag"}
-          keyboardShouldPersistTaps={"always"}
-          data={order}
-          keyExtractor={(item) => item.name}
-          renderItem={renderItem}
-          // ItemSeparatorComponent={SeparatorComponent}
-          pagingEnabled={false}
-          // ListHeaderComponent={HeaderComponent}
-          // ListFooterComponent={FooterComponent}
-        />
-      </ScrollView>
+      <View style={styles.titleContainer}>
+        <Text style={styles.title}>Selected shop</Text>
+      </View>
+      <View style={styles.venderSelected}>{vendor}</View>
+      <View style={styles.titleContainer}>
+        <Text style={styles.title}>Selected order</Text>
+      </View>
+      <View style={styles.orderSelected}>
+        <ScrollView>
+          <FlatList
+            keyboardDismissMode={"on-drag"}
+            keyboardShouldPersistTaps={"always"}
+            data={order}
+            keyExtractor={(item) => item.name}
+            renderItem={renderItem}
+            // ItemSeparatorComponent={SeparatorComponent}
+            pagingEnabled={false}
+            // ListHeaderComponent={HeaderComponent}
+            // ListFooterComponent={FooterComponent}
+          />
+        </ScrollView>
+      </View>
       <View style={styles.stickyFooter}>
-        <TouchableOpacity style={styles.btnPrimary} onPress={() => addOrder()}>
-          Save &amp; Continue
+        <TouchableOpacity
+          style={styles.btnPrimary}
+          onPress={() => PlaceOrderHandler()}
+        >
+          Place Order
         </TouchableOpacity>
       </View>
     </View>
