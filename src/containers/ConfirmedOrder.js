@@ -157,26 +157,7 @@ function ConfirmedOrder({ navigation }) {
     // console.info(finalOrder);
   };
   const [order, setOrder] = useState([{}]);
-  const initialOrder = {};
-  const addOrder = () => {
-    let newOrder = [...order];
-    newOrder.push({});
-    setOrder(newOrder);
-    console.log(newOrder);
-  };
-  const deleteItem = (index) => {
-    let newOrder = [...order];
-    newOrder.splice(index, 1);
-    setOrder(newOrder);
-    //console.log(newOrder)
-  };
-  const saveItem = (index, item, type) => {
-    let newOrder = [...order];
-    if (type === "name") newOrder[index].name = item;
-    else newOrder[index].qty = item;
-    setOrder(newOrder);
-    console.log(newOrder);
-  };
+
   React.useEffect(() => {
     setOrder(finalOrder);
   }, []);
@@ -219,81 +200,6 @@ function ConfirmedOrder({ navigation }) {
       </View>
     </View>
   );
-  //   return (
-  //     <View>
-  //       <FlatList
-  //         keyboardDismissMode={'on-drag'}
-  //         keyboardShouldPersistTaps={'always'}
-  //         data={filteredOrder}
-  //         keyExtractor={(item) => item.id}
-  //         renderItem={renderItem}
-  //         ItemSeparatorComponent={SeparatorComponent}
-  //         pagingEnabled={false}
-  //         ListHeaderComponent={HeaderComponent}
-  //         ListFooterComponent={FooterComponent}
-  //       />
-  //     </View>
-  //   );
 }
 
-const OrderRow = ({ index, item, saveItem }) => {
-  const [itemName, setItemName] = React.useState(item.name);
-  const [itemQty, setItemQty] = React.useState(item.qty);
-  return (
-    <>
-      <View style={styles.inputItem}>
-        <TextInput
-          value={itemName}
-          onChangeText={(text) => setItemName(text)}
-          placeholder={"Enter Item name"}
-          onBlur={() => saveItem(index, itemName, "name")}
-        />
-      </View>
-      <View style={styles.inputQty}>
-        <TextInput
-          value={itemQty}
-          onChangeText={(text) => setItemQty(text)}
-          placeholder={"Quantity"}
-          onBlur={() => saveItem(index, itemQty, "qty")}
-        />
-      </View>
-    </>
-  );
-};
-const DeleteOrder = ({ index, deleteItem }) => {
-  return (
-    <TouchableOpacity
-      style={styles.deleteIcon}
-      onPress={() => deleteItem(index)}
-    >
-      <IconButton
-        icon="delete"
-        color={Colors.grey900}
-        size={20}
-        onPress={() => console.log("Pressed")}
-      />
-      {/* <Text style={styles.clickableText}>
-          Delete
-        </Text> */}
-    </TouchableOpacity>
-  );
-};
-
-const SeparatorComponent = () => {
-  return <View style={styles.seperatorStyle} />;
-};
-
-const HeaderComponent = () => {
-  return (
-    <Header
-      image={require("../images/girl.png")}
-      heading={"Awesome Speakers Lineup!!"}
-      style={styles.sectionTitleGreen}
-    />
-  );
-};
-
-const FooterComponent = () => {
-  return <Footer />;
-};
 export default ConfirmedOrder;
