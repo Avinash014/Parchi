@@ -1,10 +1,11 @@
 import { COUNTER_CHANGE } from "../constants";
-import { CREATE_ORDER,SELECT_VENDOR } from "../constants";
+import { CREATE_ORDER,SELECT_VENDOR, PAST_ORDER } from "../constants";
 
 const initialState = {
   count: 0,
   order:{},
-  vendor:''
+  vendor:'',
+  pastOrderList:[]
 };
 const countReducer = (state = initialState, action:any) => {
   switch (action.type) {
@@ -18,11 +19,19 @@ const countReducer = (state = initialState, action:any) => {
         ...state,
         order: action.payload,
       };
-      case SELECT_VENDOR:
+    case SELECT_VENDOR:
       return {
         ...state,
         vendor: action.payload,
       };
+    case PAST_ORDER:{
+      let newOrderList:any = state.pastOrderList
+      newOrderList.unshift(action.payload)
+      return {
+        ...state,
+        pastOrderList: newOrderList,
+      } 
+    };
       
     default:
       return state;

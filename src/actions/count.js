@@ -1,4 +1,9 @@
-import { COUNTER_CHANGE, CREATE_ORDER, SELECT_VENDOR } from "../constants";
+import {
+  COUNTER_CHANGE,
+  CREATE_ORDER,
+  PAST_ORDER,
+  SELECT_VENDOR,
+} from "../constants";
 export function changeCount(count) {
   return {
     type: COUNTER_CHANGE,
@@ -15,5 +20,11 @@ export function addVendorAction(vendor) {
   return {
     type: SELECT_VENDOR,
     payload: vendor,
+  };
+}
+export function addToOrderList(orderList) {
+  return {
+    type: PAST_ORDER,
+    payload: orderList,
   };
 }

@@ -16,10 +16,9 @@ import { orders } from "../data/orders.json";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import { IconButton, Colors, Avatar } from "react-native-paper";
-import { changeCount, addOrderAction } from "../actions/count";
-import { useDispatch } from "react-redux";
+import { changeCount, addOrderAction, addToOrderList } from "../actions/count";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../reducers";
-import { useSelector } from "react-redux";
 
 const styles = StyleSheet.create({
   container: {
@@ -112,36 +111,38 @@ const styles = StyleSheet.create({
 });
 function ConfirmedOrder({ navigation }) {
   const dispatch = useDispatch();
-  const { count, finalOrder, vendor } = useSelector((state) => ({
+  const { count, finalOrder, vendor, pastOrderList } = useSelector((state) => ({
     count: state.count,
     finalOrder: state.count.order,
     vendor: state.count.vendor,
+    pastOrderList: state.count.pastOrderList,
   }));
 
-  const PlaceOrderHandler = () => {
+  const PlaceOrderHandler = async () => {
+    const orderObj = {
+      vendor: vendor,
+      order: finalOrder,
+    };
+    await dispatch(addToOrderList(orderObj));
+    setTimeout(() => {
+      console.info(pastOrderList);
+    }, 1000);
     var axios = require("axios");
     var data = JSON.stringify({
       customerId: 1,
       vendorId: 2,
-      items: [
-        {
-          item: "Oil tin",
-          quantity: "12 L",
-        },
-      ],
+      items: finalOrder,
     });
 
     var config = {
       method: "post",
       url: "https://kirana-stores.herokuapp.com/order/place",
-      // headers: {
-      //   "Content-Type": "application/json",
-      //   // "Access-Control-Allow-Origin": "*",
-      // },
-      headers: { "Access-Control-Allow-Origin": "*" },
+      headers: {
+        "Content-Type": "application/json",
+      },
       data: data,
     };
-
+    // axios.defaults.withCredentials = false;
     axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
