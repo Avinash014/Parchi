@@ -196,21 +196,6 @@ function CreateOrder({ navigation }) {
       </View>
     </View>
   );
-  //   return (
-  //     <View>
-  //       <FlatList
-  //         keyboardDismissMode={'on-drag'}
-  //         keyboardShouldPersistTaps={'always'}
-  //         data={filteredOrder}
-  //         keyExtractor={(item) => item.id}
-  //         renderItem={renderItem}
-  //         ItemSeparatorComponent={SeparatorComponent}
-  //         pagingEnabled={false}
-  //         ListHeaderComponent={HeaderComponent}
-  //         ListFooterComponent={FooterComponent}
-  //       />
-  //     </View>
-  //   );
 }
 
 const OrderRow = ({ index, item, saveItem }) => {
@@ -249,28 +234,8 @@ const DeleteOrder = ({ index, deleteItem }) => {
         size={20}
         onPress={() => console.log("Pressed")}
       />
-      {/* <Text style={styles.clickableText}>
-          Delete
-        </Text> */}
     </TouchableOpacity>
   );
 };
 
-const SeparatorComponent = () => {
-  return <View style={styles.seperatorStyle} />;
-};
-
-const HeaderComponent = () => {
-  return (
-    <Header
-      image={require("../images/girl.png")}
-      heading={"Awesome Speakers Lineup!!"}
-      style={styles.sectionTitleGreen}
-    />
-  );
-};
-
-const FooterComponent = () => {
-  return <Footer />;
-};
 export default CreateOrder;
