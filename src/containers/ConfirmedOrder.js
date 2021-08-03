@@ -11,7 +11,6 @@ import {
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { StyleSheet } from "react-native";
-import { orders } from "../data/orders.json";
 // import styles from './styles/sharedStyles.js';
 import { changeCount, addOrderAction, addToOrderList } from "../actions/count";
 import { useDispatch, useSelector } from "react-redux";

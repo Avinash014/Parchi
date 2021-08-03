@@ -12,11 +12,6 @@ import {
 import { Picker } from "@react-native-picker/picker";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { StyleSheet } from "react-native";
-import { orders } from "../data/orders.json";
-// import styles from './styles/sharedStyles.js';
-import { Footer } from "../components/Footer";
-import { Header } from "../components/Header";
-import { IconButton, Colors, Avatar } from "react-native-paper";
 import { changeCount, addOrderAction, addVendorAction } from "../actions/count";
 import { useDispatch } from "react-redux";
 import { RootState } from "../reducers";
@@ -145,7 +140,7 @@ function SelectVendor({ navigation }) {
     // console.info(finalOrder);
   };
   const [order, setOrder] = useState([{}]);
-  const [selectedValue, setSelectedValue] = useState("java");
+  const [selectedValue, setSelectedValue] = useState("shop 1");
   React.useEffect(() => {
     setOrder(finalOrder);
     console.info(finalOrder);
